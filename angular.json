@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "crm-atos-mars2020": {
@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "crm-atos-mars2020"
+    }
+  },
+  "defaultProject": "crm-atos-mars2020",
+  "cli": {
+    "analytics": "4b09297b-4f95-4a2a-b25b-4f781efdb324"
+  }
 }
