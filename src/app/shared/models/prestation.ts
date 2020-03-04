@@ -16,12 +16,9 @@ export class Prestation implements PrestationI {
     }
   }
   totalHt(): number {
-    console.log('total ht called');
-
     return this.tjmHt * this.nbJours;
   }
   totalTtc(): number {
-    console.log('total ttc called');
     if (this.tva <= 0) {
       return this.totalHt();
     }

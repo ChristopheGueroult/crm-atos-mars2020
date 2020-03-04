@@ -12,7 +12,7 @@ export class TotalPipe implements PipeTransform {
       }
       return value.totalHt();
     }
-    return null;
+    return null; 
   }
 
 }
