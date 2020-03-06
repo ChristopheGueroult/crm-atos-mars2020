@@ -4,7 +4,7 @@ import { Prestation } from 'src/app/shared/models/prestation';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { State } from 'src/app/shared/enums/state.enum';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faAlignCenter } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-page-prestations',
@@ -13,6 +13,7 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 })
 export class PagePrestationsComponent implements OnInit {
   public faTrashAlt = faTrashAlt;
+  public faAlignCenter = faAlignCenter;
   public collection$ = new Subject<Prestation[]>();
   public headers: string[];
   public title: string;
@@ -21,6 +22,7 @@ export class PagePrestationsComponent implements OnInit {
   public route: string;
   public externalLink: string;
   public states = Object.values(State);
+  public listLinks: {route: string, label: string}[];
   // public states = State; // need to use pipe keyvalue
   constructor(
     private ps: PrestationsService,
@@ -29,6 +31,10 @@ export class PagePrestationsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.listLinks = [
+      {route: 'details', label: 'détails'},
+      {route: 'comments', label: 'commentaires'},
+    ];
     this.ps.collection.subscribe((datas) => {
       this.collection$.next(datas);
     });
@@ -48,7 +54,8 @@ export class PagePrestationsComponent implements OnInit {
       'Total HT',
       'Total TTC',
       'State',
-      'Delete'
+      'Delete',
+      'Details'
     ]
   }
 
@@ -70,6 +77,10 @@ export class PagePrestationsComponent implements OnInit {
 
   public edit(item: Prestation) {
     this.router.navigate(['prestations','edit', item.id]);
+  }
+
+  public details(item: Prestation) {
+    this.ps.setDetails(item);
   }
 
 }

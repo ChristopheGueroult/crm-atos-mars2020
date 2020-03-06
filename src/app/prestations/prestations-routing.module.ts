@@ -1,15 +1,32 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CommentsComponent } from './components/comments/comments.component';
+import { DetailsComponent } from './components/details/details.component';
 import { PageAddPrestationComponent } from './pages/page-add-prestation/page-add-prestation.component';
-import { PagePrestationsComponent } from './pages/page-prestations/page-prestations.component';
 import { PageEditPrestationComponent } from './pages/page-edit-prestation/page-edit-prestation.component';
+import { PagePrestationsComponent } from './pages/page-prestations/page-prestations.component';
 
 
 const appRoutes: Routes = [
   {
     path: '',
     component: PagePrestationsComponent,
-    data: { title: 'Prestations', subtitle: 'Toutes les prestations' }
+    data: { title: 'Prestations', subtitle: 'Toutes les prestations' },
+    children: [
+      {
+        path: '',
+        redirectTo: 'details',
+        pathMatch: 'full'
+      },
+      {
+        path: 'details',
+        component: DetailsComponent
+      },
+      {
+        path: 'comments',
+        component: CommentsComponent
+      }
+    ]
   },
   {
     path: 'add',
