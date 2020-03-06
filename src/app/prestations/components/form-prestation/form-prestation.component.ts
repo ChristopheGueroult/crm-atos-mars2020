@@ -29,7 +29,8 @@ export class FormPrestationComponent implements OnInit {
       nbJours: [this.itemNikki.nbJours],
       tva: [this.itemNikki.tva],
       state: [this.itemNikki.state],
-      comment: [this.itemNikki.comment]
+      comment: [this.itemNikki.comment],
+      id: [this.itemNikki.id]
     });
   }
 

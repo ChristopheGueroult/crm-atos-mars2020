@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PrestationsService } from '../../services/prestations.service';
 import { Prestation } from 'src/app/shared/models/prestation';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { State } from 'src/app/shared/enums/state.enum';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-page-prestations',
@@ -11,7 +12,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./page-prestations.component.scss']
 })
 export class PagePrestationsComponent implements OnInit {
-  public collection$: Observable<Prestation[]>;
+  public faTrashAlt = faTrashAlt;
+  public collection$ = new Subject<Prestation[]>();
   public headers: string[];
   public title: string;
   public subtitle: string;
@@ -22,11 +24,14 @@ export class PagePrestationsComponent implements OnInit {
   // public states = State; // need to use pipe keyvalue
   constructor(
     private ps: PrestationsService,
-    private acRoute: ActivatedRoute
+    private acRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.collection$ = this.ps.collection;
+    this.ps.collection.subscribe((datas) => {
+      this.collection$.next(datas);
+    });
     this.acRoute.data.subscribe((datas) => {
       // console.log(datas);
       this.title = datas.title;
@@ -42,7 +47,8 @@ export class PagePrestationsComponent implements OnInit {
       'TjmHT',
       'Total HT',
       'Total TTC',
-      'State'
+      'State',
+      'Delete'
     ]
   }
 
@@ -50,6 +56,20 @@ export class PagePrestationsComponent implements OnInit {
     this.ps.updateState(item, event.target.value).subscribe((res: Prestation) => {
       item.state = res.state;
     });
+  }
+
+  public delete(itemNikki: Prestation) {
+    this.ps.delete(itemNikki).subscribe((res: Prestation) => {
+      // traiter reponse api
+      console.log(res);
+      this.ps.collection.subscribe((datas) => {
+        this.collection$.next(datas);
+      });
+    });
+  }
+
+  public edit(item: Prestation) {
+    this.router.navigate(['prestations','edit', item.id]);
   }
 
 }
