@@ -5,14 +5,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TotalPipe implements PipeTransform {
 
-  transform(value: any, args: any): any {
+  transform(value: any, args?: any): any {
     if (value) {
       if (args) {
         return value.totalTtc();
       }
       return value.totalHt();
     }
-    return null; 
+    return null;
   }
 
 }

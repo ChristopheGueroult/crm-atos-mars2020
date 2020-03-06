@@ -33,6 +33,9 @@ export class PrestationsService {
   }
 
   // add item in collection
+  public add(item: any) {
+    return this.http.post<Prestation>(`${environment.urlApi}prestations`, item);
+  }
 
   // update state
   public updateState(item: Prestation, state: State): Observable<Prestation> {

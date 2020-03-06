@@ -10,7 +10,7 @@ export class StateDirective implements OnChanges {
   }
 
   ngOnChanges(): void {
-    console.log(this.appState)
+    // console.log(this.appState)
     this.classTd = this.formatClass(this.appState);
   }
 
